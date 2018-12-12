@@ -7,9 +7,9 @@ const getComments = (id) => {
     const headers = getHeaders.getHeaders();
     const api = getApiUrl.getApiUrl();
 
-    return fetch(`${api}/posts/${id}/comments`, { headers })
+    return fetch(`${api}/comments`, { headers })
         .then((res) => res.json())
-        .then((data) => data.comments);
+        .then((data) => data);
 }
 
 module.exports = {
