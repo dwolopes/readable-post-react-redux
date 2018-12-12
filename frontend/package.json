@@ -9,8 +9,10 @@
     "react-dom": "^16.6.3",
     "react-flexbox-grid": "^2.1.2",
     "react-redux": "^6.0.0",
+    "react-redux-loading": "^1.0.1",
     "react-scripts": "2.1.1",
     "react-simple-flex-grid": "^1.2.3",
+    "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
