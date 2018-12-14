@@ -198,7 +198,8 @@ class App extends Component {
               <div className={classes.appContent}>
                 <Header onDrawerToggle={this.handleDrawerToggle} />
                 <main className={classes.mainContent}>
-                  <Route path='/:category' component={Dashboard}/>
+                  <Route exact path='/' component={Dashboard}/>
+                  <Route exact path='/:category' component={Dashboard}/>
                 </main>
               </div>
             </div>

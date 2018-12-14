@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -18,6 +19,14 @@ import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponen
 import TimerIcon from '@material-ui/icons/Timer';
 import SettingsIcon from '@material-ui/icons/Settings';
 import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup';
+import Input from '@material-ui/core/Input';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FilledInput from '@material-ui/core/FilledInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const categories = [
     {
@@ -41,7 +50,7 @@ const categories = [
     },
   ];
   
-  const styles = theme => ({
+const styles = theme => ({
     categoryHeader: {
       paddingTop: 16,
       paddingBottom: 16,
@@ -65,28 +74,46 @@ const categories = [
       fontFamily: theme.typography.fontFamily,
       color: theme.palette.common.white,
     },
-    itemActionable: {
-      '&:hover': {
-        backgroundColor: 'rgba(255, 255, 255, 0.08)',
-      },
-    },
-    itemActiveItem: {
-      color: '#4fc3f7',
-    },
-    itemPrimary: {
-      color: 'inherit',
-      fontSize: theme.typography.fontSize,
-      '&$textDense': {
-        fontSize: theme.typography.fontSize,
-      },
-    },
-    textDense: {},
     divider: {
       marginTop: theme.spacing.unit * 2,
     },
-  });
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap'
+    },
+    formControl: {
+      margin: theme.spacing.unit,
+      minWidth: 120
+    },
+    selectEmpty: {
+      marginTop: theme.spacing.unit * 2,
+    },
+    select: {
+      color: 'white'
+    },
+    label: {
+      color: 'white'
+    },
+    helper: {
+      color: 'white'
+    }
+});
 
-  class Navigator extends Component {
+class Navigator extends Component {
+
+    state = {
+      sortBy: '',
+      order: '',
+      name: 'hai',
+      labelWidth: 0,
+    };
+  
+    handleChange = event => {
+      this.setState({ [event.target.name]: event.target.value });
+      console.log(this.state);
+    };
+  
+
       render () {
 
         const { classes, ...other } = this.props;
@@ -95,61 +122,53 @@ const categories = [
             <Drawer variant="permanent" {...other}>
                 <List disablePadding>
                     <ListItem className={classNames(classes.firebase, classes.item, classes.itemCategory)}>
-                    Paperbase
+                      Readable
                     </ListItem>
                     <ListItem className={classNames(classes.item, classes.itemCategory)}>
-                    <ListItemIcon>
-                        <HomeIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                        classes={{
-                        primary: classes.itemPrimary,
-                        }}
-                    >
-                        Project Overview
-                    </ListItemText>
+                      <ListItemIcon>
+                          <HomeIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                          classes={{
+                          primary: classes.itemPrimary,
+                          }}
+                      >
+                          Sort By
+                      </ListItemText>
                     </ListItem>
-                    {categories.map(({ id, children }) => (
-                    <Fragment key={id}>
-                        <ListItem className={classes.categoryHeader}>
-                        <ListItemText
-                            classes={{
-                            primary: classes.categoryHeaderPrimary,
-                            }}
+                    <form className={classes.root} autoComplete="off">
+                      <FormControl className={classes.formControl}>
+                        <InputLabel className={classes.label} htmlFor="sortby-helper">Sort by</InputLabel>
+                        <Select
+                          value={this.state.sortBy}
+                          onChange={this.handleChange}
+                          input={<Input name="sortBy" id="sortby-helper" />}
                         >
-                            {id}
-                        </ListItemText>
-                        </ListItem>
-                        {children.map(({ id: childId, icon, active }) => (
-                        <ListItem
-                            button
-                            dense
-                            key={childId}
-                            className={classNames(
-                            classes.item,
-                            classes.itemActionable,
-                            active && classes.itemActiveItem,
-                            )}
+                          <MenuItem value={'date'}>Date</MenuItem>
+                          <MenuItem value={'title'}>Title</MenuItem>
+                          <MenuItem value={'votes'}>Votes</MenuItem>
+                          <MenuItem value={'comments'}>Comments</MenuItem>
+                        </Select>
+                        <FormHelperText className={classes.helper}>Choose how you want to sort posts</FormHelperText>
+                      </FormControl>
+                      <FormControl className={classes.formControl}>
+                        <InputLabel className={classes.label} htmlFor="order-helper">Order in </InputLabel>
+                        <Select
+                          value={this.state.order}
+                          onChange={this.handleChange}
+                          input={<Input name="order" id="order-helper" />}
                         >
-                            <ListItemIcon>{icon}</ListItemIcon>
-                            <ListItemText
-                            classes={{
-                                primary: classes.itemPrimary,
-                                textDense: classes.textDense,
-                            }}
-                            >
-                            {childId}
-                            </ListItemText>
-                        </ListItem>
-                        ))}
-                        <Divider className={classes.divider} />
-                    </Fragment>
-                    ))}
+                          <MenuItem value={'descending'}>Descending</MenuItem>
+                          <MenuItem value={'ascending'}>Ascending</MenuItem>
+                        </Select>
+                        <FormHelperText className={classes.helper}>Choose the order</FormHelperText>
+                      </FormControl>
+                    </form>
                 </List>
             </Drawer>
         )
       }
-  }
+}
 
   Navigator.propTypes = {
     classes: PropTypes.object.isRequired,

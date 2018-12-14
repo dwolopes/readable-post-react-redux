@@ -1,9 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -13,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import Post from '../post/Post';
 
 const styles = theme => ({
     paper: {
@@ -34,14 +34,13 @@ const styles = theme => ({
     },
     dashboardWrapper: {
       margin: '40px 16px',
-    },
+    }
 });
 
 class Dashboard extends Component {
 
     render() {
 
-        console.log(this.props);
         const { classes } = this.props;
 
         return (
@@ -55,7 +54,7 @@ class Dashboard extends Component {
                             <Grid item xs>
                                 <TextField
                                     fullWidth
-                                    placeholder="Search by email address, phone number, or user UID"
+                                    placeholder="Search Posts"
                                     InputProps={{
                                         disableUnderline: true,
                                         className: classes.searchInput,
@@ -64,7 +63,7 @@ class Dashboard extends Component {
                             </Grid>
                             <Grid item>
                                 <Button variant="contained" color="primary" className={classes.addUser}>
-                                    Add user
+                                    What is happening? 
                                 </Button>
                                 <Tooltip title="Reload">
                                     <IconButton>
@@ -76,9 +75,9 @@ class Dashboard extends Component {
                     </Toolbar>
                 </AppBar>
                 <div className={classes.dashboardWrapper}>
-                    <Typography color="textSecondary" align="center">
-                        No users for this project yet
-                    </Typography>
+                        {
+                            this.props.posts.map((post) => (<Post key={post.id} post={post}/>))
+                        }
                 </div>              
             </Paper>
         )
@@ -87,6 +86,17 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
     classes: PropTypes.object.isRequired,
-  };
+};
+
+function mapStateToProps ( { posts } , props) {
+    const { category } = props.match.params;
+
+    return {
+        category,
+        posts: !category
+            ? Object.values(posts)
+            : Object.values(posts).filter((post) => post.category === category)
+    }
+}
   
-export default connect()(withStyles(styles)(Dashboard));
+export default connect(mapStateToProps)(withStyles(styles)(Dashboard));

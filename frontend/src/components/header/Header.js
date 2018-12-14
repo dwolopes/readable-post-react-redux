@@ -43,9 +43,21 @@ const styles = theme => ({
 
 class Header extends Component {
 
+    state = {
+      value: 0
+    }
+
+    handleChange = (event, value) => {
+      this.setState({ value });
+    };
+  
+
     render () {
 
         const { classes, onDrawerToggle } = this.props;
+        const { value } = this.state;
+
+        console.log(this.state);
 
         return (
             <Fragment>
@@ -121,8 +133,8 @@ class Header extends Component {
                 position="static"
                 elevation={0}
               >
-                <Tabs value={0} textColor="inherit">
-                  <Tab textColor="inherit" label="Todas" component={Link}  to="/" />
+                <Tabs value={value} textColor="inherit" onChange={this.handleChange}>
+                  <Tab textColor="inherit" label="Todos" component={Link}  to="/" />
                   <Tab textColor="inherit" label="React" component={Link}  to="/react"/>
                   <Tab textColor="inherit" label="Redux" component={Link}  to="/redux"/>
                   <Tab textColor="inherit" label="Udacity" component={Link}  to="/udacity"/>
