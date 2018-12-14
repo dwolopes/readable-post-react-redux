@@ -166,10 +166,16 @@ class App extends Component {
 
   state = {
     mobileOpen: false,
+    sortBy: 'timestamp',
+    order: 'descending'
   };
 
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+  };
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
@@ -192,14 +198,14 @@ class App extends Component {
                   />
                 </Hidden>
                 <Hidden xsDown implementation="css">
-                  <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+                  <Navigator PaperProps={{ style: { width: drawerWidth } }} handleChange={this.handleChange} sorType={this.state}/>
                 </Hidden>
               </nav>
               <div className={classes.appContent}>
                 <Header onDrawerToggle={this.handleDrawerToggle} />
                 <main className={classes.mainContent}>
-                  <Route exact path='/' component={Dashboard}/>
-                  <Route exact path='/:category' component={Dashboard}/>
+                  <Route exact path='/' render={(props) => <Dashboard {...props} sorType={this.state} />} />
+                  <Route exact path='/:category' render={(props) => <Dashboard {...props} sorType={this.state} />} />
                 </main>
               </div>
             </div>

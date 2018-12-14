@@ -9,7 +9,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
+import SortIcon from '@material-ui/icons/Sort';
 import PeopleIcon from '@material-ui/icons/People';
 import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
 import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
@@ -101,22 +101,9 @@ const styles = theme => ({
 
 class Navigator extends Component {
 
-    state = {
-      sortBy: '',
-      order: '',
-      name: 'hai',
-      labelWidth: 0,
-    };
-  
-    handleChange = event => {
-      this.setState({ [event.target.name]: event.target.value });
-      console.log(this.state);
-    };
-  
-
       render () {
 
-        const { classes, ...other } = this.props;
+        const { classes, handleChange, sorType, ...other } = this.props;
 
         return (
             <Drawer variant="permanent" {...other}>
@@ -126,36 +113,36 @@ class Navigator extends Component {
                     </ListItem>
                     <ListItem className={classNames(classes.item, classes.itemCategory)}>
                       <ListItemIcon>
-                          <HomeIcon />
+                          <SortIcon />
                       </ListItemIcon>
                       <ListItemText
                           classes={{
                           primary: classes.itemPrimary,
                           }}
                       >
-                          Sort By
+                          Filter
                       </ListItemText>
                     </ListItem>
                     <form className={classes.root} autoComplete="off">
                       <FormControl className={classes.formControl}>
                         <InputLabel className={classes.label} htmlFor="sortby-helper">Sort by</InputLabel>
                         <Select
-                          value={this.state.sortBy}
-                          onChange={this.handleChange}
+                          value={sorType.sortBy}
+                          onChange={handleChange}
                           input={<Input name="sortBy" id="sortby-helper" />}
                         >
-                          <MenuItem value={'date'}>Date</MenuItem>
+                          <MenuItem value={'timestamp'}>Date</MenuItem>
                           <MenuItem value={'title'}>Title</MenuItem>
-                          <MenuItem value={'votes'}>Votes</MenuItem>
-                          <MenuItem value={'comments'}>Comments</MenuItem>
+                          <MenuItem value={'voteScore'}>Votes</MenuItem>
+                          <MenuItem value={'commentCount'}>Comments</MenuItem>
                         </Select>
                         <FormHelperText className={classes.helper}>Choose how you want to sort posts</FormHelperText>
                       </FormControl>
                       <FormControl className={classes.formControl}>
                         <InputLabel className={classes.label} htmlFor="order-helper">Order in </InputLabel>
                         <Select
-                          value={this.state.order}
-                          onChange={this.handleChange}
+                          value={sorType.order}
+                          onChange={handleChange}
                           input={<Input name="order" id="order-helper" />}
                         >
                           <MenuItem value={'descending'}>Descending</MenuItem>

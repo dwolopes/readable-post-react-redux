@@ -82,7 +82,7 @@ class Post extends Component {
                         </Grid>
                     </Grid>
               </Card>
-              <hr/>
+              <br/>
             </Fragment>
         )
     }

@@ -13,6 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Post from '../post/Post';
+import { sort } from '../../utils/helper';
 
 const styles = theme => ({
     paper: {
@@ -90,12 +91,18 @@ Dashboard.propTypes = {
 
 function mapStateToProps ( { posts } , props) {
     const { category } = props.match.params;
+    const { sortBy, order } = props.sorType;
+    let postsToSort = {};
+
+    if(!category) {
+        postsToSort = Object.values(posts);
+    } else {
+        postsToSort = Object.values(posts).filter((post) => post.category === category);
+    }
 
     return {
         category,
-        posts: !category
-            ? Object.values(posts)
-            : Object.values(posts).filter((post) => post.category === category)
+        posts:  sort(postsToSort, sortBy, order)
     }
 }
   
