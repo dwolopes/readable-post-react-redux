@@ -4,7 +4,7 @@ import { receiveCategories } from './categories';
 import { receivePosts } from './posts';
 import { receiveComments } from './comments';
 
-export function handledInitialData () {
+function handledInitialData () {
     return (dispatch) => {
         dispatch(showLoading());
         return getInitialdata().then(({categories, posts, comments }) => {
@@ -14,4 +14,8 @@ export function handledInitialData () {
             dispatch(hideLoading());
         })
     }
+}
+
+export {
+    handledInitialData
 }

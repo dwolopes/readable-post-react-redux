@@ -1,5 +1,6 @@
 /* eslint-disable default-case */
 export function formatDate (timestamp) {
+    console.log(timestamp)
     const d = new Date(timestamp);
     const time = d.toLocaleTimeString('en-US');
     return time.substr(0, 5) + time.slice(-2) + ' | ' + d.toLocaleDateString();

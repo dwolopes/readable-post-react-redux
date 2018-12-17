@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,11 +18,20 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import Post from '../post/Post';
 import { sort } from '../../utils/helper';
 
+import NewPost from '../newpost/NewPost';
+
 const styles = theme => ({
     paper: {
       maxWidth: 936,
       margin: 'auto',
       overflow: 'hidden',
+    },
+    modal: {
+        position: 'absolute',
+        width: theme.spacing.unit * 50,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing.unit * 4,
     },
     searchBar: {
       borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
@@ -38,7 +50,35 @@ const styles = theme => ({
     }
 });
 
+
+function rand() {
+    return Math.round(Math.random() * 20) - 10;
+}
+  
+function getModalStyle() {
+    const top = 50 + rand();
+    const left = 50 + rand();
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+}
+
 class Dashboard extends Component {
+
+    state = {
+        open: false,
+    };
+    
+    handleOpen = () => {
+        this.setState({ open: true });
+    };
+    
+    handleClose = () => {
+        this.setState({ open: false });
+    };
 
     render() {
 
@@ -63,9 +103,23 @@ class Dashboard extends Component {
                             />
                             </Grid>
                             <Grid item>
-                                <Button variant="contained" color="primary" className={classes.addUser}>
+                                <Button
+                                    onClick={this.handleOpen} 
+                                    variant="contained" 
+                                    color="primary" 
+                                    className={classes.addUser}>
                                     What is happening? 
                                 </Button>
+                                <Modal
+                                    aria-labelledby="simple-modal-title"
+                                    aria-describedby="simple-modal-description"
+                                    open={this.state.open}
+                                    onClose={this.handleClose}
+                                >
+                                    <div style={getModalStyle()} className={classes.modal}>
+                                        <Route render={(props) => <NewPost {...props} onClose={this.handleClose} />} />
+                                    </div>
+                                </Modal>
                                 <Tooltip title="Reload">
                                     <IconButton>
                                         <RefreshIcon className={classes.block} color="inherit" />
