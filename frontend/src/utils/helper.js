@@ -41,3 +41,14 @@ export function sort (postsToSort, sortBy, order) {
             return postsToSort
     }
 };
+
+export const normalizeObjectById = postsList => postsList.reduce((acc, curr) => {
+    acc = { // eslint-disable-line
+      ...acc,
+      [curr.id]: {
+        ...curr,
+      },
+    };
+    return acc;
+  }, {});
+  

@@ -14,6 +14,7 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import Avatar from '@material-ui/core/Avatar';
 
 import { formatDate } from '../../utils/helper';
+import { handleUpdateVote } from '../../actions/posts';
 
 const styles = {
   card: {
@@ -36,6 +37,11 @@ const styles = {
 };
 
 class Post extends Component {
+
+    clickToHandleVote = (option, post) => {
+        const { dispatch } = this.props;
+        dispatch(handleUpdateVote({ option , id: post.id }));
+    }
 
     render () {
         const { classes, post } = this.props;
@@ -71,11 +77,11 @@ class Post extends Component {
                             <CardActions>
                                 <CommentIcon/>
                                 <span>{post.commentCount}</span>
-                                <Button size="small">
+                                <Button size="small" onClick={() => this.clickToHandleVote('upVote', post)}>
                                     <AddCircleOutlineIcon/>
                                 </Button>
                                     <p>{post.voteScore}</p>
-                                <Button>
+                                <Button onClick={() => this.clickToHandleVote('downVote', post)}>
                                     <RemoveCircleOutlineIcon/>
                                 </Button>
                             </CardActions>

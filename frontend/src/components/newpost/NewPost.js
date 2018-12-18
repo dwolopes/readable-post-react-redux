@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Redirect } from 'react-router-dom';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -48,16 +47,14 @@ class NewPost extends Component {
         let post = this.state;
         const { dispatch, onClose } = this.props;
 
+        console.log("No Handle Submit", post);
         dispatch(handleAddPost(post));
         onClose();
-
-        this.forceUpdate();
 
     }
 
     render () {
         const { classes } = this.props;
-        console.log(this.props);
 
         return (
             <form className={classes.container} onSubmit={this.handleSubmit}>

@@ -30,6 +30,7 @@ const getPosts = () => {
 const savePost = (post) => {
     const headers = getHeaders.getHeaders();
     const api = getApiUrl.getApiUrl();
+    const formattedPost = formatPost(post);
 
     return fetch(`${api}/posts`, { 
         method: 'POST',
@@ -37,11 +38,26 @@ const savePost = (post) => {
             ...headers,
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formatPost(post)),
-     }).then((res) => res.json);
+        body: JSON.stringify(formattedPost),
+     }).then(res => res.json());
+}
+
+const votePost = ({option, id}) => {
+    const headers = getHeaders.getHeaders();
+    const api = getApiUrl.getApiUrl();
+
+    return fetch(`${api}/posts/${id}`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ option })
+    }).then(res => res.json());
 }
 
 export {
     getPosts,
-    savePost
+    savePost,
+    votePost
 };
