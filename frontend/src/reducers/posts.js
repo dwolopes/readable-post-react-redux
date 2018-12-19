@@ -1,4 +1,4 @@
-import { RECEIVE_POSTS, ADD_POST, UPDATE_VOTE } from '../actions/posts';
+import { RECEIVE_POSTS, ADD_POST, UPDATE_VOTE, REMOVE_POST, ADD_POST_ID } from '../actions/posts';
 import { normalizeObjectById } from '../utils/helper';
 
 export default function posts ( state = {}, action ){
@@ -26,6 +26,18 @@ export default function posts ( state = {}, action ){
                 }
             }
         }
+        case REMOVE_POST: {
+            console.log(state[action.id]);
+            return {
+                ...state,
+                [action.id]: Object.assign({}, state[action.id], { deleted:!state[action.id].deleted} )
+            }
+        }
+        case ADD_POST_ID: 
+            return {
+                ...state,
+                [action.id]: Object.assign({}, state[action.id], { deleted:!state[action.id].deleted })
+            }
         default:
             return state
     }

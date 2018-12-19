@@ -16,8 +16,8 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Post from '../post/Post';
-import { sort } from '../../utils/helper';
 
+import { sort } from '../../utils/helper';
 import NewPost from '../newpost/NewPost';
 
 const styles = theme => ({
@@ -149,9 +149,10 @@ function mapStateToProps ( { posts } , props) {
     let postsToSort = {};
 
     if(!category) {
-        postsToSort = Object.values(posts);
+        postsToSort = Object.values(posts).filter((post) => post.deleted === false);
     } else {
-        postsToSort = Object.values(posts).filter((post) => post.category === category);
+        postsToSort = Object.values(posts).filter(
+            (post) => post.category === category && post.deleted === false);
     }
 
     return {

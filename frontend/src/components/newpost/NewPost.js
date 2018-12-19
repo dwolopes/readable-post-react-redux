@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import { handleAddPost } from '../../actions/posts';
 
@@ -38,6 +39,18 @@ class NewPost extends Component {
         author: 'thingone'
     }
 
+    componentDidMount () {
+        const { post } = this.props;
+
+        if(post) {
+            this.setState({
+                title: post.title,
+                body: post.body,
+                category: post.category
+            })
+        }
+    }
+
     handleChange = prop => event => {
         this.setState({ [prop]: event.target.value });
     };
@@ -60,6 +73,7 @@ class NewPost extends Component {
             <form className={classes.container} onSubmit={this.handleSubmit}>
                 <h2>Add a new Post</h2>
                 <Input
+                    fullWidth
                     onChange={this.handleChange('title')}
                     value={this.state.title}
                     placeholder="Title"
@@ -68,11 +82,16 @@ class NewPost extends Component {
                         'aria-label': 'Title'
                     }}
                 />
-                <Input
+                <TextField
+                    fullWidth 
                     onChange={this.handleChange('body')}
+                    id="post"
+                    label="What is happening?"
+                    multiline
+                    rows="4"
                     value={this.state.body}
-                    placeholder="What is happening"
                     className={classes.input}
+                    margin="normal"
                     inputProps={{
                         'aria-label': 'Post'
                     }}

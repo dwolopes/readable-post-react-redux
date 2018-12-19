@@ -24,7 +24,8 @@ const getPosts = () => {
 
     return fetch(`${api}/posts`, { headers })
         .then((res) => res.json())
-        .then((data) => data);
+        .then((data) => data)
+        .catch(error => error);
 }
 
 const savePost = (post) => {
@@ -39,7 +40,9 @@ const savePost = (post) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(formattedPost),
-     }).then(res => res.json());
+     })
+     .then(res => res.json())
+     .catch(error => error);
 }
 
 const votePost = ({option, id}) => {
@@ -53,11 +56,27 @@ const votePost = ({option, id}) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ option })
-    }).then(res => res.json());
+    })
+        .then(res => res.json())
+        .catch(error => error);
+}
+
+const removePost = (id) => {
+    const headers = getHeaders.getHeaders();
+    const api = getApiUrl.getApiUrl();
+
+    return fetch(`${api}/posts/${id}`, {
+        method: 'DELETE',
+        headers: {
+            ...headers,
+        },
+    }).then((res) => res.json())
+      .catch(error => error);
 }
 
 export {
     getPosts,
     savePost,
-    votePost
+    votePost,
+    removePost
 };
