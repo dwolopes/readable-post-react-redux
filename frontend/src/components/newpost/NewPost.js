@@ -9,7 +9,7 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
-import { handleAddPost } from '../../actions/posts';
+import { handleAddPost, handleEditPost } from '../../actions/posts';
 
 const styles = theme => ({
   container: {
@@ -57,13 +57,15 @@ class NewPost extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        let post = this.state;
-        const { dispatch, onClose } = this.props;
+        let newPost = this.state;
+        const { dispatch, onClose, post } = this.props;
 
-        console.log("No Handle Submit", post);
-        dispatch(handleAddPost(post));
+        if (post) {
+            dispatch(handleEditPost(post.id, newPost));
+        } else {
+            dispatch(handleAddPost(newPost));
+        }
         onClose();
-
     }
 
     render () {
@@ -115,7 +117,9 @@ class NewPost extends Component {
                     <Button
                         variant="contained" 
                         color="secondary" 
-                        className={classes.button}>
+                        className={classes.button}
+                        // Pq não this.props.onClose()
+                        onClick={this.props.onClose}>
                         Cancel
                     </Button>
                     <Button
@@ -123,7 +127,7 @@ class NewPost extends Component {
                         variant="contained" 
                         color="primary" 
                         className={classes.button}>
-                        Post
+                        Save
                     </Button>
                 </div>
             </form>

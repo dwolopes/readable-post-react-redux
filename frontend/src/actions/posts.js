@@ -1,10 +1,11 @@
 import { showLoading, hideLoading} from 'react-redux-loading';
-import { savePost, votePost, removePost } from '../utils/api/posts'; 
+import { savePost, votePost, removePost, editPost } from '../utils/api/posts'; 
 const RECEIVE_POSTS = 'RECEIVE_POSTS';
 const ADD_POST = 'ADD_POST';
 const UPDATE_VOTE = 'UPDATE_VOTE';
 const REMOVE_POST = 'REMOVE_POST';
 const ADD_POST_ID = 'ADD_POST_ID';
+const EDIT_POST = 'EDIT_POST';
 
 
 const receivePosts = (posts)  => {
@@ -42,6 +43,13 @@ const addPostById = (id) => {
     }
 };
 
+const editPostAction = (post) => {
+    return {
+        type: EDIT_POST,
+        post
+    }
+}
+
 
 function handleAddPost (post) {
     return (dispatch) => {
@@ -69,14 +77,26 @@ function handleUpdateVote (data) {
      }
  }
 
+ function handleEditPost(id, {title, body, category, author}) {
+    return (dispatch, getState) => {
+        const previousPosts = getState();
+        let previousPost = previousPosts[id];
+        dispatch(editPostAction({id, title, body, category, author}));
+        return editPost(id, title, body, category, author)
+            .catch( () => editPostAction(previousPost));
+    }
+ }
+
 export {
     RECEIVE_POSTS,
     ADD_POST,
     UPDATE_VOTE,
     REMOVE_POST,
     ADD_POST_ID,
+    EDIT_POST,
     receivePosts,
     handleAddPost,
     handleUpdateVote,
-    handleRemoveVote
+    handleRemoveVote,
+    handleEditPost
 }

@@ -57,8 +57,8 @@ const votePost = ({option, id}) => {
         },
         body: JSON.stringify({ option })
     })
-        .then(res => res.json())
-        .catch(error => error);
+    .then(res => res.json())
+    .catch(error => error);
 }
 
 const removePost = (id) => {
@@ -70,13 +70,31 @@ const removePost = (id) => {
         headers: {
             ...headers,
         },
-    }).then((res) => res.json())
-      .catch(error => error);
+    })
+    .then((res) => res.json())
+    .catch(error => error);
+}
+
+const editPost = (id, title, body, author) => {
+    const headers = getHeaders.getHeaders();
+    const api = getApiUrl.getApiUrl();
+
+    return fetch(`${api}/posts/${id}`, {
+        method: 'PUT',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id, title, body, author })
+    })
+    .then((res) => res.json())
+    .catch(error => error);
 }
 
 export {
     getPosts,
     savePost,
     votePost,
-    removePost
+    removePost,
+    editPost
 };
