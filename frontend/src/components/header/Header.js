@@ -57,8 +57,6 @@ class Header extends Component {
         const { classes, onDrawerToggle } = this.props;
         const { value } = this.state;
 
-        console.log(this.state);
-
         return (
             <Fragment>
               <AppBar color="primary" position="sticky" elevation={0}>
@@ -108,7 +106,7 @@ class Header extends Component {
                   <Grid container alignItems="center" spacing={8}>
                     <Grid item xs>
                       <Typography color="inherit" variant="h5">
-                        Categorias
+                        Categories
                       </Typography>
                     </Grid>
                     <Grid item>

@@ -117,7 +117,7 @@ class Post extends Component {
                                 {formatDate(post.timestamp)}
                             </Typography>
                         </Grid>
-                        <Grid container xs={12} direction="row" justify="flex-start" alignItems="flex-end">
+                        <Grid item container xs={12} direction="row" justify="flex-start" alignItems="flex-end">
                             <Grid item className={classes.gridRemoveEdit}>
                                 <Button
                                     onClick={() => this.clickToHandleRemovePost(post.id)}
