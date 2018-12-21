@@ -12,7 +12,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import Avatar from '@material-ui/core/Avatar';
 import Modal from '@material-ui/core/Modal';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
 import { formatDate } from '../../utils/helper';
 import { handleUpdateVote, handleRemoveVote } from '../../actions/posts';
@@ -97,7 +97,7 @@ class Post extends Component {
         const { classes, post } = this.props;
 
         return (
-            <Fragment>
+            <Link to={`posts/${post.id}`}>
                 <Card className={classes.card}>
                     <Grid container spacing={32} className={classes.gridUser}>
                         <Grid item>
@@ -164,7 +164,7 @@ class Post extends Component {
                     </Grid>
                 </Card>
               <br/>
-            </Fragment>
+            </Link>
         )
     }
 }

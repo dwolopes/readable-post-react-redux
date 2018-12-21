@@ -1,13 +1,19 @@
 import { RECEIVE_COMMENTS } from '../actions/comments';
+import { normalizeObjectById } from '../utils/helper';
 
 export default function comments( state = {}, action ) {
-    // eslint-disable-next-line default-case
+    const { comment } = action;
+
     switch(action.type) {
-        case RECEIVE_COMMENTS: 
+        
+        case RECEIVE_COMMENTS: {
+            const allComments = normalizeObjectById(action.comments);
+
             return {
                 ...state,
-                ...action.comments
+                ...allComments
             };
+        }
         default:
             return state;
     }

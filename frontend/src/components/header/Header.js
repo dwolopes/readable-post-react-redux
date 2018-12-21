@@ -44,12 +44,26 @@ const styles = theme => ({
 class Header extends Component {
 
     state = {
-      value: 0
+      value : 0
     }
 
     handleChange = (event, value) => {
       this.setState({ value });
     };
+
+    componentDidMount () {
+      const { pathname } = this.props.location;
+      switch(pathname) {
+        case '/react':
+          return this.setState({value: 1});
+        case '/redux':
+          return this.setState({value: 2 });
+        case '/udacity' :
+          return this.setState({value: 3 });
+        default:
+          return this.setState ({ value: 0});
+      }
+    }
   
 
     render () {
