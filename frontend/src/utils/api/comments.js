@@ -13,6 +13,9 @@ const formatComment = (comment, parentId) => {
         timestamp: Date.now(),
         body: comment.body,
         author: comment.author,
+        voteScore: 1,
+        deleted: false,
+        parentDeleted: false
     }
 }
 
@@ -25,18 +28,18 @@ const getComments = (id) => {
         .then((data) => data);
 }
 
-const saveComment = (post) => {
+const saveComment = (comment) => {
     const headers = getHeaders.getHeaders();
     const api = getApiUrl.getApiUrl();
-    const formattedPost = formatComment(post);
+    const formattedComment = formatComment(comment);
 
-    return fetch(`${api}/posts`, { 
+    return fetch(`${api}/comments`, { 
         method: 'POST',
         headers: {
             ...headers,
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formattedPost),
+        body: JSON.stringify(formattedComment),
      })
      .then(res => res.json())
      .catch(error => error);
@@ -90,6 +93,7 @@ const editComment = (id, body, author) => {
 
 
 export {
+    formatComment,
     getComments,
     saveComment,
     voteComment,

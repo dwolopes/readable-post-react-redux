@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,6 +11,7 @@ import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import Modal from '@material-ui/core/Modal';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
@@ -17,6 +19,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Post from '../post/Post';
 import Comment from '../comment/Comment';
+import NewComment from '../newcomment/NewComment';
 
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
@@ -28,6 +31,13 @@ const styles = theme => ({
   menuButton: {
     marginLeft: -theme.spacing.unit,
   },
+  modal: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+  },
   iconButtonAvatar: {
     padding: 4,
   },
@@ -38,12 +48,43 @@ const styles = theme => ({
       color: theme.palette.common.white,
     },
   },
+  addUser: {
+    marginRight: theme.spacing.unit,
+  },
   button: {
     borderColor: lightColor,
   },
 });
 
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
 class PostDetail extends Component {
+
+    state = {
+        open: false,
+    };
+
+    handleOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    }
+
     render () {
         const { classes, post = {}, relatedComments = [] } = this.props;
 
@@ -114,6 +155,26 @@ class PostDetail extends Component {
                         relatedComments.map((comment) => <Comment key={comment.id} comment={comment}/>)
                     }
                 </Grid>
+              </Grid>
+              <Grid  container direction="column" justify="center" alignItems="center">
+                <Button
+                    onClick={this.handleOpen} 
+                    variant="contained" 
+                    color="primary" 
+                    className={classes.addUser}>
+                        Add a Comment
+                </Button>
+                <br/>
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                >
+                    <div style={getModalStyle()} className={classes.modal}>
+                          <Route render={(props) => <NewComment {...props} post={post} onClose={this.handleClose} />} />
+                    </div>
+                </Modal>
               </Grid>
             </Fragment>
           )
