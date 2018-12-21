@@ -67,7 +67,7 @@ function handleUpdateVote (data) {
         return votePost(data)
             .then( uptadedPost => dispatch(uptadedVotePost(uptadedPost)))
     }
- }
+}
 
  function handleRemoveVote (id) {
      return (dispatch) => {

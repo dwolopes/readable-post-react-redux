@@ -14,6 +14,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Modal from '@material-ui/core/Modal';
 import { Route, Link } from 'react-router-dom';
 
+import { handleUpdateVote } from '../../actions/comments';
 import { formatDate } from '../../utils/helper';
 
 
@@ -72,27 +73,10 @@ function getModalStyle() {
 
 class Comment extends Component {
 
-/*     state = {
-        open: false,
-    };
-
-    clickToHandleVote = (option, post) => {
+    clickToHandleVote = (option, comment) => {
         const { dispatch } = this.props;
-        dispatch(handleUpdateVote({ option , id: post.id }));
+        dispatch(handleUpdateVote({ option , id: comment.id }));
     }
-
-    clickToHandleRemovePost = (id) =>{
-        const { dispatch } = this.props;
-        dispatch(handleRemoveVote(id));
-    }
-
-    handleOpen = () => {
-        this.setState({ open: true });
-    };
-    
-    handleClose = () => {
-        this.setState({ open: false });
-    }; */
 
     render () {
         const { classes, comment } = this.props;

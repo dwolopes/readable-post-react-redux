@@ -1,4 +1,4 @@
-import { RECEIVE_COMMENTS } from '../actions/comments';
+import { RECEIVE_COMMENTS, UPDATE_VOTE_COMMENT} from '../actions/comments';
 import { normalizeObjectById } from '../utils/helper';
 
 export default function comments( state = {}, action ) {
@@ -13,6 +13,14 @@ export default function comments( state = {}, action ) {
                 ...state,
                 ...allComments
             };
+        }
+        case UPDATE_VOTE_COMMENT: {
+            return {
+                ...state,
+                [comment.id]: {
+                    ...comment
+                }
+            }
         }
         default:
             return state;
