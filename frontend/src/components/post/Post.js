@@ -97,7 +97,7 @@ class Post extends Component {
         const { classes, post } = this.props;
 
         return (
-            <Link to={`posts/${post.id}`}>
+            <Fragment>
                 <Card className={classes.card}>
                     <Grid container spacing={32} className={classes.gridUser}>
                         <Grid item>
@@ -107,9 +107,11 @@ class Post extends Component {
                             </Typography>
                         </Grid>
                         <Grid item xs={10} container direction="column" spacing={16}>
-                            <Typography variant="h5" component="h2">
-                                {post.title}
-                            </Typography>
+                            <Link to={`posts/${post.id}`}>
+                                <Typography variant="h5" component="h2">
+                                    {post.title}
+                                </Typography>
+                            </Link>
                             <Typography className={classes.pos} color="textSecondary">  
                                 {post.body}
                             </Typography>
@@ -164,7 +166,7 @@ class Post extends Component {
                     </Grid>
                 </Card>
               <br/>
-            </Link>
+            </Fragment>
         )
     }
 }
