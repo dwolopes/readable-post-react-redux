@@ -14,8 +14,9 @@ import Avatar from '@material-ui/core/Avatar';
 import Modal from '@material-ui/core/Modal';
 import { Route, Link } from 'react-router-dom';
 
+import avatar from '../../images/avatars/thingone.jpg';
 import { formatDate } from '../../utils/helper';
-import { handleUpdateVote, handleRemoveVote } from '../../actions/posts';
+import { handleUpdateVote, handleRemovePost } from '../../actions/posts';
 import NewPost from '../newpost/NewPost';
 
 
@@ -82,7 +83,7 @@ class Post extends Component {
 
     clickToHandleRemovePost = (id) =>{
         const { dispatch } = this.props;
-        dispatch(handleRemoveVote(id));
+        dispatch(handleRemovePost(id));
     }
 
     handleOpen = () => {
@@ -101,7 +102,7 @@ class Post extends Component {
                 <Card className={classes.card}>
                     <Grid container spacing={32} className={classes.gridUser}>
                         <Grid item>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.avatar} />
+                            <Avatar alt="Remy Sharp" src={avatar} className={classes.avatar} />
                             <Typography className={classes.title} color="textSecondary" gutterBottom>
                                 {post.author}
                             </Typography>

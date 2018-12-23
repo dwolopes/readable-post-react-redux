@@ -14,8 +14,10 @@ import Avatar from '@material-ui/core/Avatar';
 import Modal from '@material-ui/core/Modal';
 import { Route, Link } from 'react-router-dom';
 
-import { handleUpdateVote } from '../../actions/comments';
+import avatar from '../../images/avatars/thingone.jpg';
+import { handleUpdateVote, handleRemoveComment } from '../../actions/comments';
 import { formatDate } from '../../utils/helper';
+import NewComment from '../newcomment/NewComment';
 
 
 const styles = theme => ({
@@ -73,20 +75,38 @@ function getModalStyle() {
 
 class Comment extends Component {
 
+    state = {
+        open: false,
+    };
+
     clickToHandleVote = (option, comment) => {
         const { dispatch } = this.props;
         dispatch(handleUpdateVote({ option , id: comment.id }));
     }
 
+    clickToHandleRemoveComment = (id) =>{
+        const { dispatch } = this.props;
+        dispatch(handleRemoveComment(id));
+    }
+
+    handleOpen = () => {
+        this.setState({ open: true });
+    };
+    
+    handleClose = () => {
+        this.setState({ open: false });
+    };    
+
+
     render () {
         const { classes, comment } = this.props;
-
+        console.log('id do comment', comment.id);
         return (
             <Fragment>
                 <Card className={classes.card}>
                     <Grid container spacing={32} className={classes.gridUser}>
                         <Grid item>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.avatar} />
+                            <Avatar alt="Remy Sharp" src={avatar} className={classes.avatar} />
                             <Typography className={classes.title} color="textSecondary" gutterBottom>
                                 {comment.author}
                             </Typography>
@@ -102,6 +122,7 @@ class Comment extends Component {
                         <Grid item container xs={12} direction="row" justify="flex-start" alignItems="flex-end">
                             <Grid item className={classes.gridRemoveEdit}>
                                 <Button
+                                    onClick={() => this.clickToHandleRemoveComment(comment.id)}
                                     variant="contained" 
                                     color="secondary" 
                                     className={classes.button}>
@@ -110,19 +131,28 @@ class Comment extends Component {
                             </Grid>
                             <Grid item className={classes.gridRemoveEdit}>
                                 <Button
+                                    onClick={this.handleOpen}
                                     type="submit"
                                     variant="contained" 
                                     color="primary" 
                                     className={classes.button}>
                                         Edit
                                 </Button>
+                                <Modal
+                                    aria-labelledby="simple-modal-title"
+                                    aria-describedby="simple-modal-description"
+                                    open={this.state.open}
+                                    onClose={this.handleClose}
+                                >
+                                    <div style={getModalStyle()} className={classes.modal}>
+                                        <Route render={(props) => <NewComment {...props} onClose={this.handleClose} comment={comment}/>} />
+                                    </div>
+                                </Modal>
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid item container direction="row" justify="flex-end" alignItems="flex-end">
                         <CardActions>
-                            <CommentIcon/>
-                            <span>{comment.commentCount}</span>
                             <Button size="small" onClick={() => this.clickToHandleVote('upVote', comment)}>
                                 <AddCircleOutlineIcon/>
                             </Button>

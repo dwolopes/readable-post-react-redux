@@ -17,6 +17,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
+import avatar from '../../images/avatars/thingone.jpg';
+
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 const styles = theme => ({
@@ -91,7 +93,7 @@ class Header extends Component {
                     <Grid item xs />
                     <Grid item>
                       <Typography className={classes.link} component="a" href="#">
-                        Go to docs
+                        Top of the page
                       </Typography>
                     </Grid>
                     <Grid item>
@@ -103,7 +105,7 @@ class Header extends Component {
                     </Grid>
                     <Grid item>
                       <IconButton color="inherit" className={classes.iconButtonAvatar}>
-                        <Avatar className={classes.avatar} src="/static/images/avatar/1.jpg" />
+                        <Avatar className={classes.avatar} src={avatar}/>
                       </IconButton>
                     </Grid>
                   </Grid>
@@ -122,18 +124,6 @@ class Header extends Component {
                       <Typography color="inherit" variant="h5">
                         Categories
                       </Typography>
-                    </Grid>
-                    <Grid item>
-                      <Button className={classes.button} variant="outlined" color="inherit" size="small">
-                        Web setup
-                      </Button>
-                    </Grid>
-                    <Grid item>
-                      <Tooltip title="Help">
-                        <IconButton color="inherit">
-                          <HelpIcon />
-                        </IconButton>
-                      </Tooltip>
                     </Grid>
                   </Grid>
                 </Toolbar>

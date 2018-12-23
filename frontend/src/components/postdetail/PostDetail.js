@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Route } from 'react-router-dom';
+import { Route,  } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -20,6 +20,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Post from '../post/Post';
 import Comment from '../comment/Comment';
 import NewComment from '../newcomment/NewComment';
+import avatar from '../../images/avatars/thingone.jpg';
 
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
@@ -107,7 +108,7 @@ class PostDetail extends Component {
                     <Grid item xs />
                     <Grid item>
                       <Typography className={classes.link} component="a" href="#">
-                        Go to docs
+                        Top of the page
                       </Typography>
                     </Grid>
                     <Grid item>
@@ -119,7 +120,7 @@ class PostDetail extends Component {
                     </Grid>
                     <Grid item>
                       <IconButton color="inherit" className={classes.iconButtonAvatar}>
-                        <Avatar className={classes.avatar} src="/static/images/avatar/1.jpg" />
+                        <Avatar className={classes.avatar} src={avatar} />
                       </IconButton>
                     </Grid>
                   </Grid>
@@ -132,16 +133,14 @@ class PostDetail extends Component {
                       </Typography>
                     </Grid>
                     <Grid item>
-                      <Button className={classes.button} variant="outlined" color="inherit" size="small">
+                      <Button
+                        onClick={this.props.history.goBack} 
+                        className={classes.button} 
+                        variant="outlined" 
+                        color="inherit" 
+                        size="small">
                         Home
                       </Button>
-                    </Grid>
-                    <Grid item>
-                      <Tooltip title="Help">
-                        <IconButton color="inherit">
-                          <HelpIcon />
-                        </IconButton>
-                      </Tooltip>
                     </Grid>
                   </Grid>
                 </Toolbar>
@@ -187,7 +186,8 @@ function mapStateToProps({ posts, comments }, props) {
     let relatedComments;
 
     if(post) {
-        relatedComments = Object.values(comments).filter((comment) => comment.parentId === post.id)
+        relatedComments = Object.values(comments)
+          .filter((comment) => comment.parentId === post.id && comment.deleted === false)
     } else {
         relatedComments = [];
     }

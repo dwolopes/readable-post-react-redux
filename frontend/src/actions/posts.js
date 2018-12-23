@@ -69,7 +69,7 @@ function handleUpdateVote (data) {
     }
 }
 
- function handleRemoveVote (id) {
+ function handleRemovePost (id) {
      return (dispatch) => {
         dispatch(removePostById(id));
         return removePost(id)
@@ -97,6 +97,6 @@ export {
     receivePosts,
     handleAddPost,
     handleUpdateVote,
-    handleRemoveVote,
+    handleRemovePost,
     handleEditPost
 }

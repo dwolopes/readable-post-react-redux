@@ -8,14 +8,14 @@ const generateUID = () => {
 
 const formatComment = (comment, parentId) => {
     return {
+        author: comment.author,
+        body: comment.body,
+        deleted: false,
         id: generateUID(),
+        parentDeleted: false,
         parentId,
         timestamp: Date.now(),
-        body: comment.body,
-        author: comment.author,
-        voteScore: 1,
-        deleted: false,
-        parentDeleted: false
+        voteScore: 1
     }
 }
 
@@ -31,7 +31,6 @@ const getComments = (id) => {
 const saveComment = (comment) => {
     const headers = getHeaders.getHeaders();
     const api = getApiUrl.getApiUrl();
-    const formattedComment = formatComment(comment);
 
     return fetch(`${api}/comments`, { 
         method: 'POST',
@@ -39,7 +38,7 @@ const saveComment = (comment) => {
             ...headers,
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formattedComment),
+        body: JSON.stringify(comment),
      })
      .then(res => res.json())
      .catch(error => error);

@@ -4,7 +4,7 @@ import { saveComment, voteComment, editComment, removeComment } from '../utils/a
 const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 const UPDATE_VOTE_COMMENT = 'UPDATE_VOTE_COMMENT';
 const ADD_COMMENT = 'ADD_COMMENT';
-const REMOVE_COMMENT = 'REMOVE_POST';
+const REMOVE_COMMENT = 'REMOVE_COMMENT';
 const EDIT_COMMENT = 'EDIT_COMMENT';
 const ADD_COMMENT_ID = 'ADD_COMMENT_ID';
 
@@ -59,10 +59,12 @@ function handleUpdateVote (data) {
 }
 
 function handleRemoveComment (id) {
-    return (dispatch) => {
-       dispatch(removeCommentById(id));
-       return removeComment(id)
-               .catch( () => dispatch(removeCommentById(id)))
+    return (dispatch, getState) => {
+        const previousComments = getState();
+        let previousComment = previousComments[id];
+        dispatch(removeCommentById(id));
+        return removeComment(id)
+               .catch( () => dispatch(addComment(previousComment)))
     }
 }
 
@@ -71,10 +73,11 @@ function handleAddComment (comment) {
         dispatch(showLoading());
         dispatch(addComment(comment));
         return saveComment(comment)
-            .then( (c) => {
+            .then( (commentReturned) => {
                 dispatch(hideLoading());
             })
             .catch( (e) => {
+                console.log('Algo deu errado na requisição');
                 dispatch(removeCommentById(comment.id));
             })
     }
@@ -95,6 +98,7 @@ export {
     RECEIVE_COMMENTS,
     UPDATE_VOTE_COMMENT,
     ADD_COMMENT,
+    EDIT_COMMENT,
     REMOVE_COMMENT,
     addCommentById,
     receiveComments,
