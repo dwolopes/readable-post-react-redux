@@ -1,44 +1,128 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![ReadableScreen](readme-images/readme-mais-page.png)
+# **Readable**
+**Project Readable** is the second project from the **Udacity's React Developer Nanodegree** program. We should build a web application for content and comments such as a Blog. The app will allow users to post content in pre-defined categories, comment on their own posts and comment on other posts. Besides that, they can vote for comments ans posts, this way they can show in quantitive way how much they suports others' people content. Users can edit and delete posts and comments. The project emphasizes the use of **REDUX** to manage the application state.
 
-## Available Scripts
+## **Table of contents**
+- [**Readable**](#readable)
+  - [**Table of contents**](#table-of-contents)
+  - [**How to install**](#how-to-install-using-ubuntu)
+  - [**How to run**](#how-to-run)
+    - [**API Server**](#start-the-api-Server)
+    - [**Start the Client**](#start-the-client)
+  - [**How it works**](#how-it-works)
+    - [**Main Page**](#main-page)
+    - [**Dashboard**](#dashboard)
+    - [**Details Page**](#details-page)
+  - [**Features**](#features)
+  - [**Built with**](#built-with)
+  - [**Contributing**](#contributing)
+  - [**Authors**](#authors)
+  - [***License*](#license)
+  - [**Contact me**](#contact-me)
+ 
 
-In the project directory, you can run:
+## **How to install using Ubuntu**
+To clone and run this application, you'll need [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com/)) installed on your computer. After have them installed, from your terminal run:
 
-### `npm start`
+```bash
+# Clone this repository
+$ git clone https://github.com/dwolopes/readable-post-react-redux
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Go into the repository and install the application dependencies
+$ cd reactnd-readable
+$ npm install
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+# Go to api-server folder and install api-server dependencies
+$ cd api-server
+$ npm install
+```
 
-### `npm test`
+> [Dowload Node.Js and NPM](https://nodejs.org/en/download/).
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[(Back to top)](#readable)
 
-### `npm run build`
+## **How to run**
+After install all dependencies, follow the steps bellow to run the application(App) in  **Development mode**:
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### **Start the API Server**
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+* In the root of the folder, follow the commands bellow:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+# Clone this repository
+$ cd readable-post-react-redux/api-server
 
-### `npm run eject`
+# Start the API Server
+$ node server
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### **Start the Client**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* In this mode, hot loader is configured to be triggered on files changes.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+# Clone this repository
+$ cd readable-post-react-redux/frontend
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# Start the client
+$ npm start
+```
 
-## Learn More
+## **How it works**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### **Main Page**
+This page is the root page. At this page the user can see all the posts created or choose to see them by a category using the blue **Navbar**, using the options presented. Aside the dashboard, the user have a  **purple** filter toolbar which allows sort the posts date, comments, score, and number of comments.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### **Dashboard**
+At the main page, a Dashboard shows all the posts using cards and each one of them (posts) has some information and features. As informations each post have:
+- Title: clicking on it the user is redirected to the post details page;
+- body: shows the main content of the post;
+- Hour and Date which the post was made;
+- Add Post button which open a Modal Window do add a ner Post.
+- Remove and Edit button;
+- Score system;
+- Comments count;
+
+### **Details Page**
+At the details page the user will see the same post card with the same features and informations from main page but with full description being shown. Also, at this page the user can comment to the post and reply to the comments. Similiar to the Post card, comments are presented using cards and users can remove, edit and add comments as weel. Comments can be voted by readers.
+
+[(Back to top)](#readable)
+
+## **Features**
+As the project has a lot of potencial to grow in features, I decided to add some new features beyond the default features that are wanted by the project specification.
+- **Improved sort**: At the project specification it says to be able to sort posts by date or votes count, but I decided to improve the options and added Title, Comments Count together with sort order (crescent or decrescent);
+- **Search bar**: Users can search for posts by its body and words presented on it, using a search bar right in the main page.
+
+[(Back to top)](#readable)
+
+## **Built with**
+- [REACT](https://reactjs.org/) - A JavaScript library for building user interfaces
+- [Redux](https://github.com/reduxjs/redux/) - Predictable state container for JavaScript apps.
+- [Redux Thunk](https://github.com/reduxjs/redux-thunk) - Thunk middleware for Redux.
+- [React Router Dom](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom) - Responsible for managing routes in tge App.
+- [Material-UI](https://material-ui.com/) - React components that implement Google's Material Design to style the App.
+
+You can check the other dependencies on _package.json_ file.
+
+[(Back to top)](#readable)
+
+
+## **Contributing**
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## **Authors**
+
+* **Douglas Lopes** - *Initial work* - [Neighborhood-map-react](https://github.com/dwolopes/readable-post-react-redux)
+
+See also the list of [contributors](https://github.com/dwolopes/readable-post-react-redux/graphs/contributors who participated in this project.
+
+## **License**
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## **Contact me**
+
+- [LinkedIn](https://www.linkedin.com/in/dwolopes/)
+
+[(Back to top)](#readable)

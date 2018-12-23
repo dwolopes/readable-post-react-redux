@@ -24,6 +24,17 @@ const defaultData = {
     voteScore: -5,
     deleted: false,
     commentCount: 0
+  },
+  "6ni6ok3ym7mf1p33lneb": {
+    id: '6ni6ok3ym7mf1p33lneb',
+    timestamp: 1468479767192,
+    title: 'Udacity is the best',
+    body: 'Just kidding!',
+    author: 'thingone',
+    category: 'udacity',
+    voteScore: 0,
+    deleted: false,
+    commentCount: 0
   }
 }
 

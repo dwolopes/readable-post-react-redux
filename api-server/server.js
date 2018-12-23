@@ -210,6 +210,7 @@ app.delete('/posts/:id', (req, res) => {
 app.post('/posts/:id', bodyParser.json(), (req, res) => {
     const { option } = req.body
     const id = req.params.id
+    console.log(id);
     posts.vote(req.token, id, option)
       .then(
           (data) => res.send(data),
@@ -245,6 +246,19 @@ app.get('/posts/:id/comments', (req, res) => {
                   error: 'There was an error.'
               })
           }
+      )
+})
+
+app.get('/comments', (req, res) => {
+    comments.getAll(req.token)
+      .then(
+          (data) => res.send(data),
+          (error) => {
+              console.error(error)
+              res.status(500).send({
+                 error: 'There was an error.'
+          })
+        }
       )
 })
 
