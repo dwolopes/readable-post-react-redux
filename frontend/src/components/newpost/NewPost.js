@@ -36,7 +36,7 @@ class NewPost extends Component {
         title: '',
         body: '',
         category: '',
-        author: 'thingone'
+        author: ''
     }
 
     componentDidMount () {
@@ -46,7 +46,8 @@ class NewPost extends Component {
             this.setState({
                 title: post.title,
                 body: post.body,
-                category: post.category
+                category: post.category,
+                author: post.author
             })
         }
     }
@@ -96,6 +97,16 @@ class NewPost extends Component {
                     margin="normal"
                     inputProps={{
                         'aria-label': 'Post'
+                    }}
+                />
+                <Input
+                    fullWidth
+                    onChange={this.handleChange('author')}
+                    value={this.state.author}
+                    placeholder="Author"
+                    className={classes.input}
+                    inputProps={{
+                        'aria-label': 'author'
                     }}
                 />
                 <FormControl fullWidth className={classes.margin}>

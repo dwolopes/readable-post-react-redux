@@ -1,11 +1,11 @@
-import { RECEIVE_POSTS, ADD_POST, UPDATE_VOTE, REMOVE_POST, ADD_POST_ID, EDIT_POST } from '../actions/posts';
+import { RECEIVE_POSTS, ADD_POST, UPDATE_VOTE, REMOVE_POST, ADD_POST_ID, EDIT_POST, UPDATE_COMMENTS_COUTER } from '../actions/posts';
 import { normalizeObjectById } from '../utils/helper';
 
 export default function posts ( state = {}, action ){
     // eslint-disable-next-line default-case
     const { post } = action;
     switch(action.type) {
-        case RECEIVE_POSTS:{
+        case RECEIVE_POSTS: {
             const allPosts = normalizeObjectById(action.posts);
 
             return {
@@ -47,6 +47,17 @@ export default function posts ( state = {}, action ){
                     author: post.author
                 })
             }
+        case UPDATE_COMMENTS_COUTER: { 
+            const previousCounterValue =  state[action.id].commentCount;
+            let newCounterValue = previousCounterValue + 1;
+
+            return {
+                ...state,
+                [action.id]: Object.assign({}, state[action.id], {
+                    commentCount: newCounterValue
+                })
+            }
+        }
         default:
             return state
     }

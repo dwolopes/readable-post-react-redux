@@ -147,7 +147,7 @@ class PostDetail extends Component {
               </AppBar>
               <br/>
               <Grid container direction="column" justify="center" alignItems="center">
-                <Post post={post}/>
+                <Post post={post} isDetailedPost={true}/>
                 <h2>Comments</h2>
                 <Grid item>
                     {

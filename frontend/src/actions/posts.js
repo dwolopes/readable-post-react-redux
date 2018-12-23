@@ -6,6 +6,7 @@ const UPDATE_VOTE = 'UPDATE_VOTE';
 const REMOVE_POST = 'REMOVE_POST';
 const ADD_POST_ID = 'ADD_POST_ID';
 const EDIT_POST = 'EDIT_POST';
+const UPDATE_COMMENTS_COUTER = 'UPDATE_COMMENTS_COUTER';
 
 
 const receivePosts = (posts)  => {
@@ -47,6 +48,13 @@ const editPostAction = (post) => {
     return {
         type: EDIT_POST,
         post
+    }
+}
+
+const updateCommentsCounter = ({parentId}) => {
+    return {
+        type: UPDATE_COMMENTS_COUTER,
+        id: parentId
     }
 }
 
@@ -94,9 +102,11 @@ export {
     REMOVE_POST,
     ADD_POST_ID,
     EDIT_POST,
+    UPDATE_COMMENTS_COUTER,
     receivePosts,
     handleAddPost,
     handleUpdateVote,
     handleRemovePost,
-    handleEditPost
+    handleEditPost,
+    updateCommentsCounter
 }

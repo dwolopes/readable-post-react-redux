@@ -39,6 +39,7 @@ const styles = theme => ({
     margin: 10
   },
   gridUser : {
+      paddingTop: 30,
       marginLeft: 20,
       paddingRight: 50
   },
@@ -95,7 +96,9 @@ class Post extends Component {
     };
 
     render () {
-        const { classes, post } = this.props;
+        const { classes, post, isDetailedPost } = this.props;
+
+        console.log('é post detalhado', isDetailedPost)
 
         return (
             <Fragment>
@@ -108,11 +111,19 @@ class Post extends Component {
                             </Typography>
                         </Grid>
                         <Grid item xs={10} container direction="column" spacing={16}>
-                            <Link to={`posts/${post.id}`}>
-                                <Typography variant="h5" component="h2">
-                                    {post.title}
-                                </Typography>
-                            </Link>
+                            {
+                                !isDetailedPost ? 
+                                <Link to={`posts/${post.id}`}>
+                                    <Typography variant="h5" component="h2">
+                                        {post.title}
+                                    </Typography>
+                                </Link> :
+                                <Grid item>
+                                    <Typography variant="h5" component="h2">
+                                        {post.title}
+                                    </Typography>
+                                </Grid> 
+                            }
                             <Typography className={classes.pos} color="textSecondary">  
                                 {post.body}
                             </Typography>
@@ -176,9 +187,10 @@ Post.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-function mapStateToProps( undefinied , { post }) {
+function mapStateToProps( undefinied , { post, isDetailedPost = null }) {
     return {
-        post
+        post,
+        isDetailedPost
     }
 }
 

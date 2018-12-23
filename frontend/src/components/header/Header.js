@@ -17,8 +17,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
-import avatar from '../../images/avatars/thingone.jpg';
-
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 const styles = theme => ({
@@ -102,11 +100,6 @@ class Header extends Component {
                           <NotificationsIcon />
                         </IconButton>
                       </Tooltip>
-                    </Grid>
-                    <Grid item>
-                      <IconButton color="inherit" className={classes.iconButtonAvatar}>
-                        <Avatar className={classes.avatar} src={avatar}/>
-                      </IconButton>
                     </Grid>
                   </Grid>
                 </Toolbar>

@@ -29,10 +29,10 @@ const styles = theme => ({
       color: 'rgba(255, 255, 255, 0.7)',
     },
     itemCategory: {
-      backgroundColor: '#232f3e',
       boxShadow: '0 -1px 0 #404854 inset',
       paddingTop: 16,
       paddingBottom: 16,
+      color: 'white'
     },
     firebase: {
       fontSize: 24,
@@ -57,10 +57,7 @@ const styles = theme => ({
       color: 'white'
     },
     label: {
-      color: 'white'
-    },
-    helper: {
-      color: 'white'
+      color: 'black'
     }
 });
 
@@ -95,13 +92,13 @@ class Navigator extends Component {
                           value={sorType.sortBy}
                           onChange={handleChange}
                           input={<Input name="sortBy" id="sortby-helper" />}
+                          className={classes.select}
                         >
                           <MenuItem value={'timestamp'}>Date</MenuItem>
                           <MenuItem value={'title'}>Title</MenuItem>
                           <MenuItem value={'voteScore'}>Votes</MenuItem>
                           <MenuItem value={'commentCount'}>Comments</MenuItem>
                         </Select>
-                        <FormHelperText className={classes.helper}>Choose how you want to sort posts</FormHelperText>
                       </FormControl>
                       <FormControl className={classes.formControl}>
                         <InputLabel className={classes.label} htmlFor="order-helper">Order in </InputLabel>
@@ -109,11 +106,11 @@ class Navigator extends Component {
                           value={sorType.order}
                           onChange={handleChange}
                           input={<Input name="order" id="order-helper" />}
+                          className={classes.select}
                         >
                           <MenuItem value={'descending'}>Descending</MenuItem>
                           <MenuItem value={'ascending'}>Ascending</MenuItem>
                         </Select>
-                        <FormHelperText className={classes.helper}>Choose the order</FormHelperText>
                       </FormControl>
                     </form>
                 </List>

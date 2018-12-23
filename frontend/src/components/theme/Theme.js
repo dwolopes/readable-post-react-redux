@@ -34,7 +34,7 @@ let theme = createMuiTheme({
     overrides: {
       MuiDrawer: {
         paper: {
-          backgroundColor: '#18202c',
+          backgroundColor: '#5300b7',
         },
       },
       MuiButton: {

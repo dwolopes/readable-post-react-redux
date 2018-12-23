@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Input } from '@material-ui/core';
 import { connect } from 'react-redux';
 
 import { formatComment } from '../../utils/api/comments';
-import { handleAddComment , handleEditComment} from '../../actions/comments';
+import { handleEditComment} from '../../actions/comments';
+import { handleAddComment } from '../../actions/shared';
 
 const styles = theme => ({
   container: {
@@ -30,7 +31,7 @@ class NewComment extends Component {
 
     state = {
         body: '',
-        author: 'thingone'
+        author: ''
     }
 
     componentDidMount () {
@@ -39,6 +40,7 @@ class NewComment extends Component {
         if(comment) {
             this.setState({
                 body: comment.body,
+                author: comment.author
             })
         }
     }
@@ -49,9 +51,10 @@ class NewComment extends Component {
 
     handleSubmit = e => {         
         e.preventDefault();
+        const { dispatch, onClose, comment, post } = this.props;
+
         let newComment = this.state;
         let formatedComment = {};
-        const { dispatch, onClose, comment, post } = this.props;
 
         if (comment) {
             dispatch(handleEditComment(comment.id, newComment));
@@ -59,7 +62,8 @@ class NewComment extends Component {
             formatedComment = formatComment(newComment, post.id);
             dispatch(handleAddComment(formatedComment));
         }
-        onClose(); 
+        this.forceUpdate(); 
+        onClose();
     }
 
     render () {
@@ -80,6 +84,16 @@ class NewComment extends Component {
                     margin="normal"
                     inputProps={{
                         'aria-label': 'Comment'
+                    }}
+                />
+                <Input
+                    fullWidth
+                    onChange={this.handleChange('author')}
+                    value={this.state.author}
+                    placeholder="Author"
+                    className={classes.input}
+                    inputProps={{
+                        'aria-label': 'author'
                     }}
                 />
                 <div>

@@ -68,21 +68,6 @@ function handleRemoveComment (id) {
     }
 }
 
-function handleAddComment (comment) {
-    return (dispatch) => {
-        dispatch(showLoading());
-        dispatch(addComment(comment));
-        return saveComment(comment)
-            .then( (commentReturned) => {
-                dispatch(hideLoading());
-            })
-            .catch( (e) => {
-                console.log('Algo deu errado na requisição');
-                dispatch(removeCommentById(comment.id));
-            })
-    }
-}
-
 function handleEditComment(id, {body, author}) {
     return (dispatch, getState) => {
         const previousComments = getState();
@@ -105,7 +90,8 @@ export {
     uptadedVoteComment,
     handleUpdateVote,
     handleEditComment,
-    handleAddComment,
     editCommentAction,
-    handleRemoveComment
+    handleRemoveComment,
+    addComment,
+    removeCommentById
 }
