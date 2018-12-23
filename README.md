@@ -1,6 +1,6 @@
 ![ReadableScreen](readme-images/readme-mais-page.png)
 # **Readable**
-**Project Readable** is the second project from the **Udacity's React Developer Nanodegree** program. We should build a web application for content and comments such as a Blog. The app will allow users to post content in pre-defined categories, comment on their own posts and comment on other posts. Besides that, they can vote for comments ans posts, this way they can show in quantitive way how much they suports others' people content. Users can edit and delete posts and comments. The project emphasizes the use of **REDUX** to manage the application state.
+**Project Readable** is the second project from the **Udacity's React Developer Nanodegree** program. We should build a web application for content and comments like a Blog. The app will allow users to post content in predefined categories, comment on their own posts and comment on other posts. Besides that, they can vote for comments and posts, this way they can show in a quantitative way how much they suports others' people content. Users can edit and delete posts and comments. The project emphasizes the use of **REDUX** to manage the application state.
 
 ## **Table of contents**
 - [**Readable**](#readable)
@@ -17,7 +17,7 @@
   - [**Built with**](#built-with)
   - [**Contributing**](#contributing)
   - [**Authors**](#authors)
-  - [***License*](#license)
+  - [**License**](#license)
   - [**Contact me**](#contact-me)
  
 
@@ -71,27 +71,27 @@ $ npm start
 ## **How it works**
 
 ### **Main Page**
-This page is the root page. At this page the user can see all the posts created or choose to see them by a category using the blue **Navbar**, using the options presented. Aside the dashboard, the user have a  **purple** filter toolbar which allows sort the posts date, comments, score, and number of comments.
+This page is the root page. At this page the user can see all the posts created or choose to see them by category in the blue **Navbar**, using the options presented. Aside the dashboard, the user have a  **purple** filter toolbar which allows sort the posts by date, comments, score, and number of comments.
 
 ### **Dashboard**
-At the main page, a Dashboard shows all the posts using cards and each one of them (posts) has some information and features. As informations each post have:
+At the main page, a Dashboard shows all the posts using cards and each one of them (posts) has some information and features:
 - Title: clicking on it the user is redirected to the post details page;
 - body: shows the main content of the post;
 - Hour and Date which the post was made;
-- Add Post button which open a Modal Window do add a ner Post.
+- Add Post button which opens a Modal Window do add a new Post.
 - Remove and Edit button;
 - Score system;
 - Comments count;
 
 ### **Details Page**
-At the details page the user will see the same post card with the same features and informations from main page but with full description being shown. Also, at this page the user can comment to the post and reply to the comments. Similiar to the Post card, comments are presented using cards and users can remove, edit and add comments as weel. Comments can be voted by readers.
+At the details page the user will see the same post card with the same features and informations from main page but with full description being shown. Also, at this page the user can comment to the post and reply to the comments. Similiar to the Post card, comments are presented using cards and users can remove, edit and add comments as well. Comments can be voted by readers.
 
 [(Back to top)](#readable)
 
 ## **Features**
-As the project has a lot of potencial to grow in features, I decided to add some new features beyond the default features that are wanted by the project specification.
+As the project has a lot of potencial to grow in features, I decided to add some new features beyond the default features that are demanded by the project specification.
 - **Improved sort**: At the project specification it says to be able to sort posts by date or votes count, but I decided to improve the options and added Title, Comments Count together with sort order (crescent or decrescent);
-- **Search bar**: Users can search for posts by its body and words presented on it, using a search bar right in the main page.
+- **Search bar**: Users can search for posts using key words. The words searched must be present in the posts' body, this way  the post will be returned.
 
 [(Back to top)](#readable)
 
@@ -113,7 +113,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## **Authors**
 
-* **Douglas Lopes** - *Initial work* - [Neighborhood-map-react](https://github.com/dwolopes/readable-post-react-redux)
+* **Douglas Lopes** - *Initial work* - [readable-post-react-redux](https://github.com/dwolopes/readable-post-react-redux)
 
 See also the list of [contributors](https://github.com/dwolopes/readable-post-react-redux/graphs/contributors who participated in this project.
 
