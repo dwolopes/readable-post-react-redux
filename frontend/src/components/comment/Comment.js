@@ -7,12 +7,11 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import CommentIcon from '@material-ui/icons/Comment'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import Avatar from '@material-ui/core/Avatar';
 import Modal from '@material-ui/core/Modal';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import avatar from '../../images/avatars/thingone.jpg';
 import { handleUpdateVote, handleRemoveComment } from '../../actions/comments';
@@ -100,7 +99,7 @@ class Comment extends Component {
 
     render () {
         const { classes, comment } = this.props;
-        console.log('id do comment', comment.id);
+        
         return (
             <Fragment>
                 <Card className={classes.card}>

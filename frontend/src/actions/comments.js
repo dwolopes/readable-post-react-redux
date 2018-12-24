@@ -1,5 +1,5 @@
-import { showLoading, hideLoading} from 'react-redux-loading';
-import { saveComment, voteComment, editComment, removeComment } from '../utils/api/comments'; 
+
+import { voteComment, editComment, removeComment } from '../utils/api/comments'; 
 
 const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 const UPDATE_VOTE_COMMENT = 'UPDATE_VOTE_COMMENT';

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import escapeRegExp from 'escape-string-regexp';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
@@ -69,6 +70,8 @@ class Dashboard extends Component {
 
     state = {
         open: false,
+        query: '',
+
     };
     
     handleOpen = () => {
@@ -79,9 +82,19 @@ class Dashboard extends Component {
         this.setState({ open: false });
     };
 
-    render() {
+    onChangeQuery = (query) => {
+        this.setState({query: query.trim()});
+    }
 
-        const { classes } = this.props;
+    render() {
+        const { classes, posts } = this.props;
+        let filteredPost = [];
+
+        if(this.state.query){ 
+            const match = new RegExp(escapeRegExp(this.state.query, 'i'))
+            filteredPost = posts.filter(post => match.test(post.body));
+        }
+
 
         return (
             <Paper className={classes.paper}>
@@ -93,6 +106,7 @@ class Dashboard extends Component {
                             </Grid>
                             <Grid item xs>
                                 <TextField
+                                    onChange={(event) => this.onChangeQuery(event.target.value)}
                                     fullWidth
                                     placeholder="Search Posts"
                                     InputProps={{
@@ -129,9 +143,11 @@ class Dashboard extends Component {
                     </Toolbar>
                 </AppBar>
                 <div className={classes.dashboardWrapper}>
-                        {
-                            this.props.posts.map((post) => (<Post key={post.id} post={post}/>))
-                        }
+                    {
+                        filteredPost.length > 0
+                            ? filteredPost.map((post) => (<Post key={post.id} post={post}/>))
+                            : this.props.posts.map((post) => (<Post key={post.id} post={post}/>))
+                    }
                 </div>              
             </Paper>
         )
@@ -150,13 +166,25 @@ function mapStateToProps ( { posts } , props) {
     if(!category) {
         postsToSort = Object.values(posts).filter((post) => post.deleted === false);
     } else {
-        postsToSort = Object.values(posts).filter(
-            (post) => post.category === category && post.deleted === false);
+        if(!category) {
+            postsToSort = Object.values(posts).filter((post) => post.deleted === false);
+        } else if (category === 'redux') {
+            postsToSort = Object.values(posts).filter(
+                (post) => post.category === 'redux' && post.deleted === false);
+        } else if (category === 'react') {
+            postsToSort = Object.values(posts).filter(
+                (post) => post.category === 'react' && post.deleted === false);
+        } else if (category === 'udacity') {
+            postsToSort = Object.values(posts).filter(
+                (post) => post.category === 'udacity' && post.deleted === false);
+        } else {
+            postsToSort = Object.values(posts).filter((post) => post.deleted === false); 
+        }
     }
 
     return {
         category,
-        posts:  sort(postsToSort, sortBy, order)
+        posts: sort(postsToSort, sortBy, order)
     }
 }
   

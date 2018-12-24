@@ -98,8 +98,6 @@ class Post extends Component {
     render () {
         const { classes, post, isDetailedPost } = this.props;
 
-        console.log('é post detalhado', isDetailedPost)
-
         return (
             <Fragment>
                 <Card className={classes.card}>

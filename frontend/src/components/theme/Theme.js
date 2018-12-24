@@ -188,8 +188,8 @@ class Theme extends Component {
                 <div className={classes.appContent}>
                     <Route render={(props) => <Header {...props} onDrawerToggle={this.handleDrawerToggle} />}/>
                     <main className={classes.mainContent}>
-                    <Route exact path='/' render={(props) => <Dashboard {...props} sorType={this.state} />} />
-                    <Route exact path='/:category' render={(props) => <Dashboard {...props} sorType={this.state} />} />
+                      <Route exact path='/' render={(props) => <Dashboard {...props} sorType={this.state} />} />
+                      <Route exact path='/:category' render={(props) => <Dashboard {...props} sorType={this.state} />} />
                     </main>
                 </div>
             </div>

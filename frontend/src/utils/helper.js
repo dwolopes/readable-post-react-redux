@@ -10,7 +10,15 @@ function sortAscending(postsToSort, sortBy) {
         case 'timestamp':
             return postsToSort.sort((a, b) => a[sortBy] - b[sortBy]);
         case 'title':
-            return postsToSort.sort((a, b) => a[sortBy] - b[sortBy]);
+            return postsToSort.sort((a, b) => {
+                if(a[sortBy].charAt(0) < b[sortBy].charAt(0)){
+                    return -1;
+                }
+                if (a[sortBy].charAt(0) > b[sortBy].charAt(0)){
+                    return 1;
+                }
+                return 0;
+            });
         case 'voteScore':
             return postsToSort.sort((a, b) => a[sortBy] - b[sortBy]);
         case 'commentCount':
@@ -22,7 +30,15 @@ function sortDescending(postsToSort, sortBy) {
         case 'timestamp':
             return postsToSort.sort((a, b) => b[sortBy] - a[sortBy]);
         case 'title':
-            return postsToSort.sort((a, b) => b[sortBy] - a[sortBy]);
+            return postsToSort.sort((a, b) => {
+                if(a[sortBy].charAt(0) < b[sortBy].charAt(0)){
+                    return 1;
+                }
+                if (a[sortBy].charAt(0) > b[sortBy].charAt(0)){
+                    return -1;
+                }
+                return 0;
+            });
         case 'voteScore':
             return postsToSort.sort((a, b) => b[sortBy] - a[sortBy]);
         case 'commentCount':
