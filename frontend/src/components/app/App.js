@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { LoadingBar } from 'react-redux-loading';
+
 import './App.css';
 import { handledInitialData } from '../../actions/shared';
 import PostDetail from '../postdetail/PostDetail';
-
+import PageNotFound from '../page-not-found/PageNotFound';
 import Theme from '../theme/Theme';
 
 class App extends Component {
@@ -17,17 +18,32 @@ class App extends Component {
 
   render() {
 
+    console.log ('loading', this.props.loading);
+
     return (
       <Router>
         <Fragment>
           <LoadingBar/>
-          <Route exact path='/' component={Theme} />
-          <Route exact path='/:category' component={Theme} />
-          <Route exact path='/posts/:id' render={(props) => <PostDetail {...props} />} />
+            {
+              this.props.loading === true 
+                ? null
+              : <Switch>
+                  <Route exact path='/' component={Theme} />
+                  <Route exact path='/posts/:id' render={(props) => <PostDetail {...props} />} />
+                  <Route exact path='/pageNotFound' component={PageNotFound}/>
+                  <Route exact path='/:category' component={Theme} />
+                </Switch>
+            }
         </Fragment>
       </Router>
     );
   }
 }
 
-export default connect()(App)
+function mapStateToProps ({loading}) {
+  return {
+    loading
+  }
+}
+
+export default connect(mapStateToProps)(App)

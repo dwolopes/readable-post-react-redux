@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import escapeRegExp from 'escape-string-regexp';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -70,8 +70,7 @@ class Dashboard extends Component {
 
     state = {
         open: false,
-        query: '',
-
+        query: ''
     };
     
     handleOpen = () => {
@@ -87,7 +86,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { classes, posts } = this.props;
+        const { classes, posts = [], categoryExists } = this.props;
         let filteredPost = [];
 
         if(this.state.query){ 
@@ -95,6 +94,9 @@ class Dashboard extends Component {
             filteredPost = posts.filter(post => match.test(post.body));
         }
 
+        if(categoryExists === false){
+            return <Redirect to="/pageNotFound"/>
+        }
 
         return (
             <Paper className={classes.paper}>
@@ -159,31 +161,25 @@ Dashboard.propTypes = {
 };
 
 function mapStateToProps ( { posts } , props) {
-    const { category } = props.match.params;
     const { sortBy, order } = props.sorType;
+    const { category } = props.match.params;
     let postsToSort = {};
+    let categoryExists = false;
 
     if(!category) {
         postsToSort = Object.values(posts).filter((post) => post.deleted === false);
+        categoryExists = true;
+    } else if (category === 'react' || category === 'redux' || category === 'udacity') {
+        postsToSort = Object.values(posts).filter(
+            (post) => post.category === category && post.deleted === false);
+        categoryExists = true;
     } else {
-        if(!category) {
-            postsToSort = Object.values(posts).filter((post) => post.deleted === false);
-        } else if (category === 'redux') {
-            postsToSort = Object.values(posts).filter(
-                (post) => post.category === 'redux' && post.deleted === false);
-        } else if (category === 'react') {
-            postsToSort = Object.values(posts).filter(
-                (post) => post.category === 'react' && post.deleted === false);
-        } else if (category === 'udacity') {
-            postsToSort = Object.values(posts).filter(
-                (post) => post.category === 'udacity' && post.deleted === false);
-        } else {
-            postsToSort = Object.values(posts).filter((post) => post.deleted === false); 
-        }
+        postsToSort = [];
     }
 
     return {
         category,
+        categoryExists,
         posts: sort(postsToSort, sortBy, order)
     }
 }

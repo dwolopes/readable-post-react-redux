@@ -12,7 +12,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import Avatar from '@material-ui/core/Avatar';
 import Modal from '@material-ui/core/Modal';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 
 import avatar from '../../images/avatars/thingone.jpg';
 import { formatDate } from '../../utils/helper';
@@ -75,6 +75,7 @@ class Post extends Component {
 
     state = {
         open: false,
+        toHome: false
     };
 
     clickToHandleVote = (option, post) => {
@@ -82,9 +83,15 @@ class Post extends Component {
         dispatch(handleUpdateVote({ option , id: post.id }));
     }
 
-    clickToHandleRemovePost = (id) =>{
+    clickToHandleRemovePost = (id, isDetailedPost = false) =>{
         const { dispatch } = this.props;
         dispatch(handleRemovePost(id));
+        if(isDetailedPost) {
+            this.setState({toHome: true})
+        } else {
+            this.handleClose();
+        }
+
     }
 
     handleOpen = () => {
@@ -97,6 +104,10 @@ class Post extends Component {
 
     render () {
         const { classes, post, isDetailedPost } = this.props;
+
+        if(this.state.toHome) {
+            return <Redirect to='/' />;
+        }
 
         return (
             <Fragment>
@@ -132,7 +143,7 @@ class Post extends Component {
                         <Grid item container xs={12} direction="row" justify="flex-start" alignItems="flex-end">
                             <Grid item className={classes.gridRemoveEdit}>
                                 <Button
-                                    onClick={() => this.clickToHandleRemovePost(post.id)}
+                                    onClick={() => this.clickToHandleRemovePost(post.id, isDetailedPost)}
                                     variant="contained" 
                                     color="secondary" 
                                     className={classes.button}>

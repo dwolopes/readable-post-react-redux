@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Route,  } from 'react-router-dom';
+import { Route,  Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -86,7 +86,11 @@ class PostDetail extends Component {
     }
 
     render () {
-        const { classes, post = {}, relatedComments = [] } = this.props;
+        const { classes, post = [], relatedComments, loading} = this.props;
+
+        if (loading === false && post === null) {
+          return <Redirect to='/pageNotFound' />;
+        }
 
         return (
             <Fragment>
@@ -179,20 +183,22 @@ class PostDetail extends Component {
     }
 }
 
-function mapStateToProps({ posts, comments }, props) {
+function mapStateToProps({ posts, comments, loading }, props) {
     const { id } = props.match.params;
-    let post = posts[id];
+    const post = posts[id];
     let relatedComments;
 
-    if(post) {
+
+    if(post && loading === false) {
         relatedComments = Object.values(comments)
-          .filter((comment) => comment.parentId === post.id && comment.deleted === false)
+          .filter((comment) => comment.parentId === post.id && comment.deleted === false);
     } else {
         relatedComments = [];
     }
 
     return {
-        post: !post ? [] : post,
+        post: !post ? null : post,
+        loading,
         relatedComments
     }
 }

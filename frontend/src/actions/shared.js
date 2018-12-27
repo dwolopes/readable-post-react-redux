@@ -4,6 +4,7 @@ import { saveComment } from '../utils/api/comments';
 import { receiveCategories } from './categories';
 import { receivePosts, updateCommentsCounter } from './posts';
 import { receiveComments } from './comments';
+import { receiveData } from './loading';
 import { addComment, removeCommentById }  from './comments'
 
 function handledInitialData () {
@@ -13,6 +14,7 @@ function handledInitialData () {
             dispatch(receiveCategories(categories));
             dispatch(receivePosts(posts));
             dispatch(receiveComments(comments));
+            dispatch(receiveData());
             dispatch(hideLoading());
         })
     }
